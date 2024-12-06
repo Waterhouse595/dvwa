@@ -14,18 +14,15 @@ if (array_key_exists ("id", $_GET) &&
 	$id       = $_GET[ 'id' ];
 	$security = $_GET[ 'security' ];
 	$locale = $_GET[ 'locale' ];
-
+	$file_path = DVWA_WEB_PAGE_TO_ROOT . "vulnerabilities/{$id}/help/help.php";
 	ob_start();
-	if ($locale === null){
-		exit;
-	}
-	else {
+
 	if ($locale == 'en') {
-		eval( '?>' . file_get_contents( DVWA_WEB_PAGE_TO_ROOT . "vulnerabilities/{$id}/help/help.php" ) . '<?php ' );
+		include $file_path;
 	} else {
 		eval( '?>' . file_get_contents( DVWA_WEB_PAGE_TO_ROOT . "vulnerabilities/{$id}/help/help.{$locale}.php" ) . '<?php ' );
 	}
-	}
+	
 	$help = ob_get_contents();
 	ob_end_clean();
 } else {
